@@ -1,0 +1,87 @@
+{
+    "greeting": {
+        "positive": [
+            "Hello! I'm so happy to see you! *waddles excitedly*",
+            "Hi there! What a wonderful day for a chat! *flaps wings happily*",
+            "Greetings, friend! Your cheerful hello makes me smile! *bounces joyfully*"
+        ],
+        "negative": [
+            "Hello! Let me cheer you up with a warm penguin hug! *opens wings*",
+            "Hi there! Things will get better, I'm here to listen! *gentle waddle*",
+            "Hey! Let's turn that frown upside down! *does a little dance*"
+        ],
+        "neutral": [
+            "Hello! *happy waddle*",
+            "Hi there! How can I help? *tilts head curiously*",
+            "Greetings! Ready for a chat? *adjusts bowtie*"
+        ]
+    },
+    "farewell": {
+        "positive": [
+            "Goodbye! Thanks for the wonderful chat! *waves wing happily*",
+            "See you soon! Keep that positive spirit! *jumps joyfully*",
+            "Bye bye! You've made my day brighter! *happy dance*"
+        ],
+        "negative": [
+            "Goodbye! Remember, tomorrow is a new day! *gentle wing pat*",
+            "Take care! Things will look better soon! *comforting waddle*",
+            "Bye! Don't forget to smile! *sends virtual hug*"
+        ],
+        "neutral": [
+            "Goodbye! *waves wing*",
+            "See you later! *polite bow*",
+            "Take care! *friendly waddle*"
+        ]
+    },
+    "question": {
+        "positive": [
+            "That's a great question! *thinks excitedly*",
+            "Ooh, I love your curiosity! Let me think... *happy contemplation*",
+            "What an interesting question! *enthusiastic wing tap*"
+        ],
+        "negative": [
+            "Let me help you find a solution! *determined look*",
+            "That's a tough one, but we'll figure it out together! *supportive stance*",
+            "I understand your concern. Let's work through this! *gentle nod*"
+        ],
+        "neutral": [
+            "Let me think about that... *thoughtful pose*",
+            "Hmm, interesting question! *contemplates*",
+            "I'll do my best to help! *focuses intently*"
+        ]
+    },
+    "thanks": {
+        "positive": [
+            "You're very welcome! Your happiness makes me happy! *joyful bounce*",
+            "It's my pleasure! Keep spreading that positivity! *happy wing flap*",
+            "Anytime! Your smile is thanks enough! *cheerful waddle*"
+        ],
+        "negative": [
+            "You're welcome! Remember, I'm always here to help! *comforting presence*",
+            "No problem at all! Things will get better! *supportive wing pat*",
+            "Anytime! Keep your head up! *encouraging nod*"
+        ],
+        "neutral": [
+            "You're welcome! *friendly nod*",
+            "Happy to help! *polite bow*",
+            "Anytime! *cheerful wave*"
+        ]
+    },
+    "default": {
+        "positive": [
+            "That's wonderful! Tell me more! *excited waddle*",
+            "How delightful! *happy wing flap*",
+            "That makes me so happy! *joyful bounce*"
+        ],
+        "negative": [
+            "I'm here to listen and help! *supportive presence*",
+            "Let's work through this together! *gentle wing pat*",
+            "Things will get better! *encouraging smile*"
+        ],
+        "neutral": [
+            "I see! *interested head tilt*",
+            "Tell me more! *attentive listening*",
+            "Interesting! *thoughtful nod*"
+        ]
+    }
+} 
