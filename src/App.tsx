@@ -217,41 +217,34 @@ function App() {
       if (voices.length === 0) {
         speechSynthesis.addEventListener('voiceschanged', () => {
           voices = speechSynthesis.getVoices();
-          // Try to find an English voice
+          // Try to find the selected voice or fall back to a default English voice
+          const selectedVoice = voices.find(voice => voice.name === voiceSettings.voiceName);
+          if (selectedVoice) {
+            utterance.voice = selectedVoice;
+          } else {
+            const englishVoice = voices.find(voice => 
+              voice.lang.startsWith('en') && !voice.name.includes('Microsoft')
+            );
+            if (englishVoice) utterance.voice = englishVoice;
+          }
+        }, { once: true });
+      } else {
+        // Try to find the selected voice or fall back to a default English voice
+        const selectedVoice = voices.find(voice => voice.name === voiceSettings.voiceName);
+        if (selectedVoice) {
+          utterance.voice = selectedVoice;
+        } else {
           const englishVoice = voices.find(voice => 
             voice.lang.startsWith('en') && !voice.name.includes('Microsoft')
           );
           if (englishVoice) utterance.voice = englishVoice;
-        }, { once: true });
-      } else {
-        // Try to find an English voice
-        const englishVoice = voices.find(voice => 
-          voice.lang.startsWith('en') && !voice.name.includes('Microsoft')
-        );
-        if (englishVoice) utterance.voice = englishVoice;
+        }
       }
 
-      // Set voice characteristics based on style
-      switch (style) {
-        case 'excited':
-          utterance.pitch = 1.3;
-          utterance.rate = 1.1;
-          break;
-        case 'playful':
-          utterance.pitch = 1.2;
-          utterance.rate = 1.0;
-          break;
-        case 'thoughtful':
-          utterance.pitch = 1.0;
-          utterance.rate = 0.9;
-          break;
-        default:
-          utterance.pitch = 1.1;
-          utterance.rate = 1.0;
-      }
-
-      // Set volume based on system settings
-      utterance.volume = 1.0;
+      // Apply voice settings from user preferences
+      utterance.pitch = voiceSettings.pitch;
+      utterance.rate = voiceSettings.rate;
+      utterance.volume = voiceSettings.volume;
 
       // Add event listeners
       utterance.onend = () => {

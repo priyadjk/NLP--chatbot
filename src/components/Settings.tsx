@@ -33,6 +33,7 @@ const VoiceSelect = styled.select<{ $isDark: boolean }>`
   font-size: 0.9rem;
   cursor: pointer;
   outline: none;
+  margin-bottom: 10px;
   
   &:hover {
     border-color: ${props => props.$isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)'};
@@ -44,6 +45,32 @@ const VoiceSelect = styled.select<{ $isDark: boolean }>`
   
   option {
     background: ${props => props.$isDark ? '#1a1a1a' : '#ffffff'};
+  }
+`;
+
+const VoiceFilter = styled.div<{ $isDark: boolean }>`
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+`;
+
+const FilterButton = styled.button<{ $isDark: boolean; $active: boolean }>`
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid ${props => props.$isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'};
+  background: ${props => props.$active 
+    ? '#4FB6F2' 
+    : props.$isDark 
+      ? 'rgba(255, 255, 255, 0.05)' 
+      : 'rgba(0, 0, 0, 0.05)'};
+  color: ${props => props.$active ? '#fff' : 'inherit'};
+  font-size: 0.9rem;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: ${props => props.$active ? '#4FB6F2' : props.$isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'};
   }
 `;
 
@@ -59,6 +86,7 @@ const Settings: React.FC<SettingsProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
+  const [voiceFilter, setVoiceFilter] = useState<'all' | 'female' | 'male'>('all');
   
   useEffect(() => {
     const loadVoices = () => {
@@ -78,6 +106,16 @@ const Settings: React.FC<SettingsProps> = ({
       window.speechSynthesis.removeEventListener('voiceschanged', loadVoices);
     };
   }, []);
+
+  const getFilteredVoices = () => {
+    return availableVoices.filter(voice => {
+      if (voiceFilter === 'all') return true;
+      const isFemale = voice.name.toLowerCase().includes('female') || 
+                      voice.name.toLowerCase().includes('woman') ||
+                      voice.name.toLowerCase().includes('girl');
+      return voiceFilter === 'female' ? isFemale : !isFemale;
+    });
+  };
 
   const handleThemeToggle = () => {
     onThemeChange(!isDarkMode);
@@ -181,6 +219,30 @@ const Settings: React.FC<SettingsProps> = ({
                     <span>Voice Settings</span>
                   </SettingLabel>
 
+                  <VoiceFilter $isDark={isDarkMode}>
+                    <FilterButton 
+                      $isDark={isDarkMode} 
+                      $active={voiceFilter === 'all'}
+                      onClick={() => setVoiceFilter('all')}
+                    >
+                      All Voices
+                    </FilterButton>
+                    <FilterButton 
+                      $isDark={isDarkMode} 
+                      $active={voiceFilter === 'female'}
+                      onClick={() => setVoiceFilter('female')}
+                    >
+                      Female Voices
+                    </FilterButton>
+                    <FilterButton 
+                      $isDark={isDarkMode} 
+                      $active={voiceFilter === 'male'}
+                      onClick={() => setVoiceFilter('male')}
+                    >
+                      Male Voices
+                    </FilterButton>
+                  </VoiceFilter>
+
                   <SliderContainer>
                     <span>Voice:</span>
                     <VoiceSelect
@@ -189,7 +251,7 @@ const Settings: React.FC<SettingsProps> = ({
                       $isDark={isDarkMode}
                     >
                       <option value="">Default Voice</option>
-                      {availableVoices.map((voice) => (
+                      {getFilteredVoices().map((voice) => (
                         <option key={voice.name} value={voice.name}>
                           {voice.name} ({voice.lang})
                         </option>
